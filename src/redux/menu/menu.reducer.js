@@ -2,6 +2,7 @@ import MenuActionTypes from './menu.types';
 
 const INITIAL_STATE = {
 	hidden: true,
+	currentUser: null,
 };
 
 const menuReducer = (state = INITIAL_STATE, action) => {
@@ -10,6 +11,11 @@ const menuReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				hidden: !state.hidden,
+			};
+		case MenuActionTypes.SET_CURRENT_USER:
+			return {
+				...state,
+				currentUser: action.payload,
 			};
 		default:
 			return state;

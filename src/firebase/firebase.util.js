@@ -14,6 +14,29 @@ const config = {
 
 firebase.initializeApp(config);
 // Activate new user
+export const createUserprofileDocument = async (userAuth, additionalData) => {
+	if (!userAuth) return;
+	const userRef = firestore.doc(`users/${userAuth.uid}`);
+	const snapShot = await userRef.get();
+
+	if (!snapShot.exists) {
+		const { displayName, email } = userAuth;
+		const createdAt = new Date();
+
+		try {
+			await userRef.set({
+				displayName,
+				email,
+				createdAt,
+				...additionalData,
+			});
+		} catch (error) {
+			console.log('Error Creating User', error.message);
+		}
+	}
+	console.log(userAuth);
+	return userRef;
+};
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
@@ -24,8 +47,7 @@ provider.setCustomParameters({ prompt: 'select_account' });
 export const signInWithGoggle = () => auth.signInWithPopup(provider);
 
 // Facebook auth login
-const provider = new firebase.auth.FacebookAuthProvider();
-provider.setCustomParameters({ display: 'popup' });
-export const signInFacebook = () => auth.signInWithPopup(provider);
+const providerF = new firebase.auth.FacebookAuthProvider();
+export const signInFacebook = () => auth.signInWithPopup(providerF);
 
 export default firebase;

@@ -48,3 +48,9 @@ export const OptionLink = styled(Link)`
 	text-decoration: none;
 	color: #fff;
 `;
+
+export const OptionDisplay = styled.span`
+	font-size: 15px;
+	padding-right: 5px;
+	color: #fff;
+`;

@@ -10,11 +10,15 @@ import {
 	LogoContainer,
 	MenuContainer,
 	OptionLink,
+	OptionDisplay,
 } from './Header.style';
 
-import { selectMenuHidden } from '../../redux/menu/menu.selector';
+import {
+	selectMenuHidden,
+	selectCurrentUser,
+} from '../../redux/menu/menu.selector';
 
-const Header = ({ hidden }) => {
+const Header = ({ hidden, currentUser }) => {
 	return (
 		<HeaderContainer bgColor>
 			<LogoContainer to="/">
@@ -22,8 +26,12 @@ const Header = ({ hidden }) => {
 			</LogoContainer>
 			<MenuContainer>
 				<OptionLink to="/about">About</OptionLink>
-				<OptionLink to="/discover">Discover</OptionLink>
-				<OptionLink to="/signIn">Get Started</OptionLink>
+				<OptionLink to="/funding">Discover</OptionLink>
+				{currentUser ? (
+					<OptionDisplay>{currentUser.displayName}</OptionDisplay>
+				) : (
+					<OptionLink to="/signIn">Get Started</OptionLink>
+				)}
 				<UserLogo />
 			</MenuContainer>
 			{hidden ? null : <DropDown />}
@@ -33,6 +41,7 @@ const Header = ({ hidden }) => {
 
 const mapStateToProps = createStructuredSelector({
 	hidden: selectMenuHidden,
+	currentUser: selectCurrentUser,
 });
 
 export default connect(mapStateToProps)(Header);

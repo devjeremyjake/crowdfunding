@@ -5,5 +5,10 @@ const selectMenu = (state) => state.menu;
 
 export const selectMenuHidden = createSelector(
 	[selectMenu],
-	(cart) => cart.hidden
+	(menu) => menu.hidden
+);
+
+export const selectCurrentUser = createSelector(
+	[selectMenu],
+	(user) => user.currentUser
 );

@@ -7,6 +7,7 @@ import Header from '../../components/Header/Header.component';
 function HomePage() {
 	return (
 		<HomeContainer>
+			<Header />
 			<h2>Home page</h2>
 		</HomeContainer>
 	);
